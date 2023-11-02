@@ -1,33 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import Card from './Card'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [nombre, setNombre] = useState('');
+  const [codigo, setCodigo] = useState('');
+  const [datos, setDatos] = useState({nombre:'', codigo:''})
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState(false);
+  const handleChangeNombre = (event) => setNombre(event.target.value.trim());  
+  const handleChangeCodigo = (event) => setCodigo(event.target.value.trim());
+
+  const handleIngresar = () => {
+    let validacionInput1 = nombre.length > 3;
+    let validacionInput2 = codigo.length >= 6;
+    
+    if(validacionInput1 && validacionInput2){
+      setDatos({nombre:nombre, codigo:codigo});
+      setShow(true);
+      setError(false);
+    } else {
+      setError(true);
+      setShow(false);
+    }
+    
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div style={{display:'flex'}}>
+      <input type="text" placeholder='Nombre' onChange={handleChangeNombre}/>
+      <input type="text" placeholder='Codigo ISBN' onChange={handleChangeCodigo}/>
+      <button style={{backgroundColor:"green"}}onClick={handleIngresar}> Ingresar </button>
+    </div>
+      {show ?
+      <>
+        <Card datos={datos}/>
+      </>
+      :
+      null
+      }
+      {error && <h3 style={{ color: 'red'}}>Por favor chequea que la información sea correcta</h3>}
+
+
+      
     </>
   )
 }
