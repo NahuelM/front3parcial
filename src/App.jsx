@@ -29,10 +29,10 @@ function App() {
 
   return (
     <>
-    <div style={{display:'flex'}}>
-      <input type="text" placeholder='Nombre' onChange={handleChangeNombre}/>
+    <div style={{display:'flex',flexDirection: 'column', backgroundColor:'gray'}}>
+      <input type="text" placeholder='Nombre' style={{marginBottom: '10px'}}onChange={handleChangeNombre}/>
       <input type="text" placeholder='Codigo ISBN' onChange={handleChangeCodigo}/>
-      <button style={{backgroundColor:"green"}}onClick={handleIngresar}> Ingresar </button>
+      <button style={{backgroundColor:"green", marginTop: '10px'}}onClick={handleIngresar}> Ingresar </button>
     </div>
       {show ?
       <>
